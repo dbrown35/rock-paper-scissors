@@ -1,0 +1,25 @@
+.results {
+    margin: auto;
+    width: 30%;
+    border: 3px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.score {
+    margin: auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.choice {
+    margin: auto;
+    text-align: center;
+    padding: 30px;
+}
+
+.new {
+    margin: auto;
+    text-align: center;
+    padding: 15px;
+}

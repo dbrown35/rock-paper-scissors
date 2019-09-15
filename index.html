@@ -1,94 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="game.css">
+    <meta charset="utf-8"/>
   <title>Rock,Paper,Scissors</title>
 </head>
 <body>
+    <div class='results'>
+    </div>
+    <div class='score'>
+
+    </div>
+    <div class = 'choice'>
+        <button type="button" class='btn' id='rock-btn'>ROCK</button>
+        <button type="button" class='btn' id='paper-btn'>PAPER</button>
+        <button type="button" class='btn' id='scissors-btn'>SCISSORS</button>
+    </div>
+    <div class= 'new'>
+            <button type="button" class='btn' id='newGame' value ='true'>NEW GAME</button>
+    </div>
   <script>
-    let playerScore, computerScore;
+    const rock = document.querySelector('#rock-btn');
+    const paper = document.querySelector('#paper-btn');
+    const scissors = document.querySelector('#scissors-btn');
+    const score = document.querySelector('.score');
+    const newGame = document.querySelector('#newGame');
+
+    let cap = true;
+    let playerScore = 0, computerScore = 0;
     let choiceArr = ['rock','paper','scissors'];
+    const results = document.querySelector('.results');
+
+    results.textContent = 'Rock, Paper, Scissors';
+
+    rock.addEventListener('click',() => playRound('rock', computerPlay()));
+    paper.addEventListener('click',() => playRound('paper', computerPlay()));
+    scissors.addEventListener('click',() => playRound('scissors', computerPlay()));
+    newGame.addEventListener('click', () => {
+            cap = true;
+            playerScore = 0;
+            computerScore = 0;
+            score.textContent = 'Your Score: ' + playerScore + ' Computer Score: ' + computerScore;
+            results.textContent = 'Rock, Paper, Scissors';
+        });
+
+
     function computerPlay(){
         return choiceArr[Math.floor(Math.random()*choiceArr.length)];
     }
 
     function playRound(playerSelection, computerSelection){
-        switch(playerSelection.toLowerCase()){
+        //game();
+        if(cap){
+        switch(playerSelection){
             case 'rock':
                 if(computerSelection === 'rock'){
-                    console.log('TIE!');
+                    results.textContent = 'TIE!';
                 }
                 else if(computerSelection === 'paper'){
-                    console.log('YOU LOSE! ' + computerSelection + ' beats ' + playerSelection);
-                    return computerScore++;
+                    results.textContent = 'YOU LOSE! ' + computerSelection + ' beats ' + playerSelection;
+                    computerScore++;
                 }
                 else if(computerSelection === 'scissors'){
-                    console.log('YOU WIN! ' + playerSelection + ' beats ' + computerSelection);
-                    return playerScore++;
+                    results.textContent = 'YOU WIN! ' + playerSelection + ' beats ' + computerSelection;
+                    playerScore++;
                 }
-                else
-                    console.log('ERROR!');
                 break;
             case 'paper':
                 if(computerSelection === 'paper'){
-                    console.log('TIE!');
+                    results.textContent = 'TIE!';
                 }
                 else if(computerSelection === 'scissors'){
-                    console.log('YOU LOSE! ' + computerSelection + ' beats ' + playerSelection);
-                    return computerScore++;
+                    results.textContent = 'YOU LOSE! ' + computerSelection + ' beats ' + playerSelection;
+                    computerScore++;
                 }
                 else if(computerSelection === 'rock'){
-                    console.log('YOU WIN! ' + playerSelection + ' beats ' + computerSelection);
-                    return playerScore++;
+                    results.textContent = 'YOU WIN! ' + playerSelection + ' beats ' + computerSelection;
+                    playerScore++;
                 }
-                else
-                    console.log('ERROR!');
                 break;
             case 'scissors':
                 if(computerSelection === 'scissors'){
-                    console.log('TIE!');
+                    results.textContent = 'TIE!';
                 }
                 else if(computerSelection === 'rock'){
-                    console.log('YOU LOSE! ' + computerSelection + ' beats ' + playerSelection);
-                    return computerScore++;
+                    results.textContent = 'YOU LOSE! ' + computerSelection + ' beats ' + playerSelection;
+                    computerScore++;
                 }
                 else if(computerSelection === 'paper'){
-                    console.log('YOU WIN! ' + playerSelection + ' beats ' + computerSelection);
-                    return playerScore++;
+                    results.textContent = 'YOU WIN! ' + playerSelection + ' beats ' + computerSelection;
+                    playerScore++;
                 }
-                else
-                    console.log('ERROR!');
                 break;
 
 
+        }
+        //console.log('Your Score: ' + playerScore);
+        //console.log('Computer Score: ' + computerScore);
+        game();
         }
     }
 
     function game(){
-        playerScore = 0, computerScore = 0;
-        do {
-            let playerSelection = prompt('Enter your choice of \'rock\', \'paper\', or \'scissors\': ');
-            console.log(playerSelection);
-            playRound(playerSelection, computerPlay());
-            console.log('Your score: ' + playerScore + ' Computer score: ' + computerScore);
-        }while(playerScore < 5 && computerScore < 5)
-
-        if(playerScore === 5)
-            console.log('You win the game!');
-        else if(computerScore === 5)
-            console.log('You lost to the computer!');
-
-        let newGame = prompt('Would you like to play again \'yes\' or \'no\'? ');
-        if(newGame === 'yes'){
-
-            game();
+        if (playerScore < 5 && computerScore < 5){
+            score.textContent = 'Your Score: ' + playerScore + ' Computer Score: ' + computerScore;
         }
-        else if(newGame === 'no')
-            console.log('Thanks for playing!');
-
+        else if(playerScore === 5){
+            score.textContent = 'You win the game!';
+            cap = false;
+            results.textContent = 'YOU WON!';
+        }
+        else if(computerScore === 5){
+            score.textContent = 'You lost to the computer!';
+            cap = false;
+            results.textContent = 'YOU LOST!';
+        }
     }
 
-    game();
+    /*function scoreIncrement() {
+        playerScore++;
+        document.getElementById("score").innerText="Score: " + score; 
+    }​*/
+    
 
+    
+
+    
   </script>
 </body>
 </html>
